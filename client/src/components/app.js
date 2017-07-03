@@ -7,6 +7,7 @@ class App extends React.Component{
             <div>
                 <Header/>
                 <h1>Test</h1>
+                { this.props.children }
             </div>
         );
     }
