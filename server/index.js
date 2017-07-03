@@ -7,7 +7,10 @@ import mongoose from 'mongoose';
 
 // DB Setup
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/auth')
+//mongoose.connect('mongodb://localhost/auth', {
+mongoose.connect('mongodb://192.168.99.100/auth', {
+    useMongoClient: true,
+}).then( db => {} );
 
 const app = express();
 

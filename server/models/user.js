@@ -16,7 +16,7 @@ userSchema.pre('save', function(next) {
        if (err) { return next(err); }
 
        bcrypt.hash( user.password, salt, null, (err, hash)=>{
-           if (err) { return next(err); };
+           if (err) { return next(err); }
 
            user.password = hash;
            next();
@@ -30,7 +30,7 @@ userSchema.methods.comparePassword = function (candidatePassword, callback) {
 
         callback(null, isMatch);
     })
-}
+};
 
 // Create the model class
 const modelUser = mongoose.model('user', userSchema);
