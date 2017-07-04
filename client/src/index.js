@@ -5,9 +5,10 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from './helpers/history';
+import reducers from './reducers';
 import App from './components/app';
 import Signin from './components/auth/signin';
-import reducers from './reducers';
+import Signout from './components/auth/signout';
 import Map from './components/map';
 
 const Home = ()=><h1>Home</h1>;
@@ -25,6 +26,7 @@ ReactDOM.render(
                 <Switch>
                     <Route exact path="/" component={ Home }/>
                     <Route path="/signin" component={Signin}/>
+                    <Route path="/signout" component={Signout}/>
                     <Route path="/map" component={Map}/>
                 </Switch>
             </App>

@@ -61,3 +61,8 @@ export const singinUser = ({email, password}) => {
         })
     }
 };
+
+export const signoutUser = ()=>{
+    localStorage.removeItem('token');
+    return({ type: UNAUTH_USER });
+};
