@@ -1,5 +1,6 @@
 import React from 'react';
 import FormControl from 'react-bootstrap/lib/FormControl';
+import Alert from 'react-bootstrap/lib/Alert';
 
 const FieldInput = ({ input, meta, type, placeholder, min, max }) => {
     return (
@@ -9,10 +10,9 @@ const FieldInput = ({ input, meta, type, placeholder, min, max }) => {
                 placeholder={placeholder}
                 min={min}
                 max={max}
-                value={input.value}
-                onChange={input.onChange}
+                {...input}
             />
-            {meta.touched && meta.error && <span className="error">{meta.error}</span>}
+            {meta.touched && meta.error && <Alert bsStyle="danger"><span className="error">{meta.error}</span></Alert>}
         </div>
     )
 };
