@@ -1,39 +1,46 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import FormControl from 'react-bootstrap/lib/FormControl';
+import Panel from 'react-bootstrap/lib/Panel';
 import Button from 'react-bootstrap/lib/Button';
 import FieldInput from '../common/field_input';
-
+import { singinUser } from '../../reducers/auth';
 
 class Signin extends React.Component {
     handleFormSubmit({email, password}) {
-        console.log(email, password);
+        this.props.singinUser({email, password});
     }
 
     render(){
-       const { handleSubmit, fields: { email, password } } = this.props;
+       const { handleSubmit } = this.props;
 
        return(
-           <form onSubmit={ handleSubmit(this.handleFormSubmit.bind(this)) }>
-               <FormGroup>
-                   <ControlLabel>Email:</ControlLabel>
-                   <Field name="email" component={FieldInput} type="email" value={email}/>
-               </FormGroup>
-               <FormGroup>
-                   <ControlLabel>Password:</ControlLabel>
-                   <FormControl {...password} type="password"/>
-               </FormGroup>
-               <Button bsStyle="primary" type="submit" >
-                   Sign in
-               </Button>
-           </form>
+           <Panel>
+               <h2>Sign in</h2>
+               <form onSubmit={ handleSubmit(this.handleFormSubmit.bind(this)) }>
+                   <FormGroup>
+                       <ControlLabel>Email:</ControlLabel>
+                       <Field name="email" component={FieldInput} type="email"/>
+                   </FormGroup>
+                   <FormGroup>
+                       <ControlLabel>Password:</ControlLabel>
+                       <Field name="password" component={FieldInput} type="password"/>
+                   </FormGroup>
+                   <Button bsStyle="primary" type="submit" >
+                       Sign in
+                   </Button>
+               </form>
+           </Panel>
        );
     }
 }
 
-export default reduxForm({
-    form: 'signin',
-    fields: ['email', 'password']
+Signin = reduxForm({
+    form: 'signin'
 })(Signin);
+
+Signin = connect( null,{ singinUser })(Signin);
+
+export default Signin;

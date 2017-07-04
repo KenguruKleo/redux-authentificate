@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-//import { createBrowserHistory } from 'history';
-//import { Router, Route, IndexRoute } from 'react-router';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import App from './components/app';
 import Signin from './components/auth/signin';
@@ -11,12 +10,14 @@ import reducers from './reducers';
 
 const Home = ()=><h1>Home</h1>;
 
-//const history = createBrowserHistory({});
-
-const createStoreWithMiddleware  = applyMiddleware()(createStore);
+const middleware = [thunk];
+const store = createStore(reducers, {}, compose(
+    applyMiddleware(...middleware),
+    typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
+));
 
 ReactDOM.render(
-    <Provider store={createStoreWithMiddleware(reducers)}>
+    <Provider store={store}>
         <Router>
             <App>
                 <Switch>
