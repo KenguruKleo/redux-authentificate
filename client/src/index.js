@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 //import { createBrowserHistory } from 'history';
 //import { Router, Route, IndexRoute } from 'react-router';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import App from './components/app';
 import Signin from './components/auth/signin';
 import reducers from './reducers';

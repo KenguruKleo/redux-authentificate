@@ -1,9 +1,11 @@
 import React from 'react';
-import { reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import Button from 'react-bootstrap/lib/Button';
+import FieldInput from '../common/field_input';
+
 
 class Signin extends React.Component {
     handleFormSubmit({email, password}) {
@@ -14,14 +16,14 @@ class Signin extends React.Component {
        const { handleSubmit, fields: { email, password } } = this.props;
 
        return(
-           <form onSubmit={this.handleFormSubmit.bind(this)}>
-               <FormGroup controlId="email">
+           <form onSubmit={ handleSubmit(this.handleFormSubmit.bind(this)) }>
+               <FormGroup>
                    <ControlLabel>Email:</ControlLabel>
-                   <FormControl type="email"/>
+                   <Field name="email" component={FieldInput} type="email" value={email}/>
                </FormGroup>
-               <FormGroup controlId="password">
+               <FormGroup>
                    <ControlLabel>Password:</ControlLabel>
-                   <FormControl type="password"/>
+                   <FormControl {...password} type="password"/>
                </FormGroup>
                <Button bsStyle="primary" type="submit" >
                    Sign in
