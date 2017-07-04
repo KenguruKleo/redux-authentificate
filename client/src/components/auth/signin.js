@@ -5,12 +5,23 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Panel from 'react-bootstrap/lib/Panel';
 import Button from 'react-bootstrap/lib/Button';
+import Alert from 'react-bootstrap/lib/Alert';
 import FieldInput from '../common/field_input';
 import { singinUser } from '../../reducers/auth';
 
 class Signin extends React.Component {
     handleFormSubmit({email, password}) {
         this.props.singinUser({email, password});
+    }
+
+    renderAlert(){
+        if( this.props.errorMessage){
+            return(
+                <Alert bsStyle="danger">
+                    <p>{ this.props.errorMessage }</p>
+                </Alert>
+            );
+        }
     }
 
     render(){
@@ -28,6 +39,7 @@ class Signin extends React.Component {
                        <ControlLabel>Password:</ControlLabel>
                        <Field name="password" component={FieldInput} type="password"/>
                    </FormGroup>
+                   { this.renderAlert() }
                    <Button bsStyle="primary" type="submit" >
                        Sign in
                    </Button>
@@ -41,6 +53,9 @@ Signin = reduxForm({
     form: 'signin'
 })(Signin);
 
-Signin = connect( null,{ singinUser })(Signin);
+Signin = connect(
+    state => ({ errorMessage: state.auth.error })
+    ,{ singinUser }
+)(Signin);
 
 export default Signin;

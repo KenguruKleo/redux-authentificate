@@ -8,6 +8,7 @@ import history from './helpers/history';
 import App from './components/app';
 import Signin from './components/auth/signin';
 import reducers from './reducers';
+import Map from './components/map';
 
 const Home = ()=><h1>Home</h1>;
 
@@ -24,6 +25,7 @@ ReactDOM.render(
                 <Switch>
                     <Route exact path="/" component={ Home }/>
                     <Route path="/signin" component={Signin}/>
+                    <Route path="/map" component={Map}/>
                 </Switch>
             </App>
         </Router>
