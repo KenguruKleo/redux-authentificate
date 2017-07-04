@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+import history from './helpers/history';
 import App from './components/app';
 import Signin from './components/auth/signin';
 import reducers from './reducers';
@@ -18,7 +19,7 @@ const store = createStore(reducers, {}, compose(
 
 ReactDOM.render(
     <Provider store={store}>
-        <Router>
+        <Router history={history}>
             <App>
                 <Switch>
                     <Route exact path="/" component={ Home }/>

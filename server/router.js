@@ -8,7 +8,7 @@ const requireSignin = passport.authenticate('local', { session: false });
 export default function ( app ) {
 
     app.get( '/', requireAuth, (req, res)=>{
-        res.send({ hi: 'there'});
+        res.send({ message: 'Some protected message'});
     });
 
     app.post( '/signin', requireSignin, Authentication.signin );

@@ -4,6 +4,7 @@ import bodyParcer from 'body-parser';
 import morgan from 'morgan';
 import router from './router';
 import mongoose from 'mongoose';
+import cors from 'cors';
 
 // DB Setup
 mongoose.Promise = global.Promise;
@@ -16,6 +17,7 @@ const app = express();
 
 // App Setup
 app.use( morgan('combined') );
+app.use( cors() );
 app.use( bodyParcer.json({type: '*/*'}) );
 
 router(app);
