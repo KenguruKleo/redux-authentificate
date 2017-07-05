@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from './helpers/history';
 import reducers from './reducers';
+import requireAuth from './components/common/require_authentication';
 import App from './components/app';
 import Signin from './components/auth/signin';
 import Signout from './components/auth/signout';
@@ -29,7 +30,7 @@ ReactDOM.render(
                     <Route path="/signin" component={Signin}/>
                     <Route path="/signup" component={Signup}/>
                     <Route path="/signout" component={Signout}/>
-                    <Route path="/map" component={Map}/>
+                    <Route path="/map" component={ requireAuth(Map) }/>
                 </Switch>
             </App>
         </Router>
