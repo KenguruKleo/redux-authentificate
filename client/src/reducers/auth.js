@@ -39,8 +39,18 @@ export const authWithToken = () => {
     return dispatch => {
         const token = localStorage.getItem('token');
         if( token ){
-            //TODO - check token
-            dispatch({ type: AUTH_USER });
+            fetch(URLS.AUTH_CHECK_TOKEN, {
+                method: 'get',
+                headers: { authorization: token }
+            }).then( response => {
+                if(response.status === 200){
+                    dispatch({ type: AUTH_USER });
+                } else {
+                    dispatch({ type: UNAUTH_USER });
+                }
+            });
+
+
         }
     }
 };
