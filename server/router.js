@@ -11,6 +11,7 @@ export default function ( app ) {
         res.send({ message: 'Some protected message'});
     });
 
+    app.get( '/check_token', requireAuth, (req, res)=>{ res.send({ message: 'OK'}); });
     app.post( '/signin', requireSignin, Authentication.signin );
     app.post( '/signup', Authentication.signup );
 }
