@@ -35,6 +35,16 @@ export default combineReducers({
     error
 });
 
+export const authWithToken = () => {
+    return dispatch => {
+        const token = localStorage.getItem('token');
+        if( token ){
+            //TODO - check token
+            dispatch({ type: AUTH_USER });
+        }
+    }
+};
+
 export const authError = (error) => ({type: AUTH_ERROR, error});
 
 export const singinUser = ({email, password}) => {
