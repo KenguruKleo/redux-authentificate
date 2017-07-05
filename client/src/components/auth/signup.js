@@ -5,13 +5,14 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Panel from 'react-bootstrap/lib/Panel';
 import Button from 'react-bootstrap/lib/Button';
+import Alert from 'react-bootstrap/lib/Alert';
 import FieldInput from '../common/field_input';
-import { signupUser} from '../../reducers/auth';
+import { singupUser } from '../../reducers/auth';
 
 class Signup extends React.Component{
 
-    handleFormSubmit({email, password}) {
-        this.props.singupUser({email, password});
+    handleFormSubmit( {email, password} ) {
+        this.props.singupUser( {email, password} );
     }
 
     render(){
@@ -33,7 +34,7 @@ class Signup extends React.Component{
                         <ControlLabel>Confirm Password:</ControlLabel>
                         <Field name="passwordConfirm" component={FieldInput} type="password"/>
                     </FormGroup>
-
+                    { this.props.errorMessage && <Alert bsStyle="danger"><strong>{ this.props.errorMessage }</strong></Alert> }
                     <Button bsStyle="primary" type="submit" >
                         Sign up
                     </Button>
@@ -45,6 +46,18 @@ class Signup extends React.Component{
 
 const validate = formProps => {
     const errors = {};
+
+    if ( ! formProps.email){
+        errors.email = 'Please enter an email';
+    }
+
+    if ( ! formProps.password){
+        errors.password = 'Please enter a password';
+    }
+
+    if ( ! formProps.passwordConfirm){
+        errors.passwordConfirm = 'Please enter a password conformation';
+    }
 
     if (formProps.password !== formProps.passwordConfirm){
         errors.passwordConfirm = 'Passwords must much';
@@ -59,6 +72,6 @@ Signup = reduxForm({
 })(Signup);
 
 export default connect(
-    null,
-    { signupUser }
+    state => ({ errorMessage: state.auth.error }),
+    { singupUser }
 )(Signup)

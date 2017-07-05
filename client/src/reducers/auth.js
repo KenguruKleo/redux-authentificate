@@ -62,6 +62,33 @@ export const singinUser = ({email, password}) => {
     }
 };
 
+export const singupUser = ({email, password}) => {
+    return dispatch => {
+        fetch(URLS.AUTH_SIGNUP, {
+            method: 'post',
+            body: JSON.stringify( {email, password} )
+        })
+        .then(response => {
+            if(response.status === 200){
+                response.json().then( data => {
+                    dispatch({type: AUTH_USER});
+                    localStorage.setItem('token', data.token);
+                    history.push('/map');
+                });
+            } else {
+                response.json().then( data => {
+                    dispatch( authError(data.error) );
+                });
+            }
+        })
+        .catch( err=>{
+            console.log(err);
+            localStorage.removeItem('token');
+            dispatch(authError('Bad Login Info'));
+        })
+    }
+};
+
 export const signoutUser = ()=>{
     localStorage.removeItem('token');
     return({ type: UNAUTH_USER });
